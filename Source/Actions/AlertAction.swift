@@ -15,7 +15,7 @@ public enum AlertActionStyle: Int {
 }
 
 @objc(SDCAlertAction)
-public class AlertAction: NSObject {
+open class AlertAction: NSObject {
 
     /**
     Creates an action with a plain title.
