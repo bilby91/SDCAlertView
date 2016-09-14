@@ -29,9 +29,6 @@ open class AlertVisualStyle: NSObject {
     /// automatically determined.
     public var actionViewSize: CGSize
 
-    /// The color of an action when the user is tapping it
-    public var actionHighlightColor = UIColor(white: 0.8, alpha: 0.7)
-
     /// The color of the separators between actions
     public var actionViewSeparatorColor = UIColor(white: 0.5, alpha: 0.5)
 
@@ -55,6 +52,9 @@ open class AlertVisualStyle: NSObject {
 
     /// The color for a nondestructive action's text
     public var normalTextColor: UIColor?
+
+    /// The color for a preferred action's text
+    public var preferredTextColor: UIColor?
 
     /// The color for a destructive action's text
     public var destructiveTextColor = UIColor.red
@@ -106,14 +106,46 @@ open class AlertVisualStyle: NSObject {
         }
     }
 
+
     /// The text color for a given action.
     ///
     /// - parameter action: The action that determines the text color.
     ///
     /// - returns: The text color, or nil to use the alert's `tintColor`.
     open func textColor(for action: AlertAction?) -> UIColor? {
-        return action?.style == .destructive ? self.destructiveTextColor : self.normalTextColor
+        guard let actionStyle = action?.style else
+        {
+            return self.normalTextColor
+        }
+
+        switch actionStyle {
+        case .normal:
+            return self.normalTextColor
+        case .preferred:
+            return self.preferredTextColor
+        case .destructive:
+            return self.destructiveTextColor
+        }
     }
+
+    /**
+     The color of an action
+
+     - parameter action: The action to determine its color
+
+     - returns: The action color
+     */
+    open func actionColor(for action: AlertAction?) -> UIColor { return UIColor.clear }
+
+    /**
+     The color of an action when the user is tapping it
+
+     - parameter action: The action to determine its highlighted color
+
+     - returns: The action higlighted color
+     */
+    open func actionHighlightColor(for action: AlertAction?) -> UIColor { return UIColor(white: 0.8, alpha: 0.7) }
+
 
     /// The font for a given action.
     ///
