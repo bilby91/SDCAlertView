@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(SDCAlertAction)
-public class AlertAction: NSObject {
+open class AlertAction: NSObject {
     /// Creates an action with a plain title.
     ///
     /// parameter title:   An optional title for the action
